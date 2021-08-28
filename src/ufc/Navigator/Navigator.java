@@ -14,10 +14,6 @@ public class Navigator {
     Hashtable<String, Integer> hstCountWaypoint = new Hashtable<>();
     List<String> aux = new ArrayList<>();
 
-    Path p = Paths.get("/home/wccmachado/Documentos/PreImagem/test.txt");
-    //String s = System.lineSeparator() + "New Line!";
-
-
     public Navigator(ReadFile reader) {
         this.reader = reader;
     }
@@ -34,7 +30,6 @@ public class Navigator {
            ) {
                BuildConstructAction("rover0", from, toLocal1);
            }
-
        }
 
     }

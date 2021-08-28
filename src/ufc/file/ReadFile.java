@@ -1,5 +1,7 @@
 package ufc.file;
 
+import ufc.Objects.Objects;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -35,8 +37,9 @@ public class ReadFile {
     }
 
     public void run() {
+        Objects obj = new Objects();
         BufferedReader in;
-        String line;
+        String line="", nextLine=null;
 
         {
             try {
@@ -48,17 +51,18 @@ public class ReadFile {
                 while (in.ready()) {
                     line = in.readLine();
                     if (line.contains("(:objects")) {
-                        while (!line.contains("(:init")) {
-                            line = in.readLine();
-                            if (line.contains("waypoint ")) {
-                                line = line.trim();
-                                String aux1 = line.substring(0, line.lastIndexOf(" -"));
-                                lstWaypoint.add(aux1);
+                        line= line.trim();
+                        line = line.replace("(:objects","");
+                        do {
+                            nextLine = in.readLine().trim();
+                            line = line + " " +  nextLine;
+                        } while (!line.contains(")"));
+                        line = line.replace(")","")+ " ";
 
-                            }
-                        }
+                        obj.getObjects(line);
                     }
-                    if (line.contains("(:init")) {
+
+                    if (line.contains("(:init)")) {
                         while (!line.contains("(:goal")) {
                             line = in.readLine();
                             if (line.contains("visible ")) {
